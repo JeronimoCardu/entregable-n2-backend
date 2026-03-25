@@ -60,16 +60,10 @@ export const mountProducts = () => {
       btn.innerHTML = '<span class="spinner"></span>Agregando...';
 
       if (!state.cartId) {
-        const cr = await API.createCart();
-        if (cr.status === "success") {
-          state.cartId = cr.payload._id;
-          save();
-        } else {
-          toast("Error al crear carrito", "error");
-          btn.disabled = false;
-          btn.textContent = originalText;
-          return;
-        }
+        toast("No se encontró un carrito asignado. Intentá reloguearte.", "error");
+        btn.disabled = false;
+        btn.textContent = originalText;
+        return;
       }
       const res = await API.addToCart(state.cartId, btn.dataset.id);
       if (res.status === "success") {

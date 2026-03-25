@@ -1,8 +1,10 @@
 const UserDAO = require("../daos/mongo/user.dao.js");
+const CartDAO = require("../daos/mongo/cart.dao.js");
 const SessionsService = require("../services/sessions.service.js");
 
 const userDAO = new UserDAO();
-const sessionsService = new SessionsService(userDAO);
+const cartDAO = new CartDAO();
+const sessionsService = new SessionsService(userDAO, cartDAO);
 
 class SessionsController {
   constructor(service) {

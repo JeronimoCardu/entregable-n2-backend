@@ -40,6 +40,7 @@ export const mountLogin = () => {
       if (res.status === "success") {
         state.token = res.token;
         state.user = res.payload;
+        state.cartId = res.payload.cart || null;
         save();
         toast("Bienvenido, " + state.user.first_name);
         navigate("#/products");

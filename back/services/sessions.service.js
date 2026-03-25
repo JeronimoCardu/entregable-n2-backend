@@ -4,8 +4,9 @@ const { sendResetPasswordEmail } = require("../utils/mailer.util.js");
 const UserDTO = require("../dtos/user.dto.js");
 
 class SessionsService {
-  constructor(userDAO) {
+  constructor(userDAO, cartDAO) {
     this.userDAO = userDAO;
+    this.cartDAO = cartDAO;
   }
 
   async register({ first_name, last_name, age, email, password }) {
@@ -18,12 +19,15 @@ class SessionsService {
       return { ok: false, code: 409, message: "User already exists" };
     }
 
+    const cart = await this.cartDAO.create();
+
     const newUser = await this.userDAO.create({
       first_name,
       last_name,
       age,
       email,
       password: hashPassword(password),
+      cart: cart._id,
     });
 
     return {
