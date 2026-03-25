@@ -60,7 +60,10 @@ export const mountProducts = () => {
       btn.innerHTML = '<span class="spinner"></span>Agregando...';
 
       if (!state.cartId) {
-        toast("No se encontró un carrito asignado. Intentá reloguearte.", "error");
+        toast(
+          "No se encontró un carrito asignado. Intentá reloguearte.",
+          "error",
+        );
         btn.disabled = false;
         btn.textContent = originalText;
         return;
